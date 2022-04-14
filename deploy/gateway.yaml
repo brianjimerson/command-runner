@@ -1,0 +1,46 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: command-runner-gw
+  namespace: command-runner
+spec:
+  selector:
+    istio: ingress
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "command-runner.pintobean.xyz"
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: command-runner-tls
+    hosts:
+    - "command-runner.pintobean.xyz"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: command-runner-vs
+  namespace: command-runner
+spec:
+  hosts:
+  - command-runner.pintobean.xyz
+  gateways:
+  - command-runner-gw
+  http:
+  - name: http-command-runner
+    route:
+    - destination:
+        host: command-runner 
+        port:
+          number: 8080
+

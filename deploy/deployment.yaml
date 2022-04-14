@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: command-runner
+  labels:
+    name: command-runner
+    istio-injection: enabled
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: command-runner
+  namespace: command-runner
+  labels:
+    app: command-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: command-runner
+  template:
+    metadata:
+      labels:
+        app: command-runner
+    spec:
+      containers:
+      - name: command-runner
+        image: harbor.pintobean.xyz/command-runner/command-runner:0.1.0
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
