@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: external
+  namespace: command-runner
+spec:
+  hosts:
+  - www.google.com
+  - www.cbssports.com
+  - httpbin.org
+  ports:
+  - number: 443
+    name: tls
+    protocol: TLS
+  - number: 80
+    name: http
+    protocol: HTTP
+  resolution: DNS
+  location: MESH_EXTERNAL
