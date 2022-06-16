@@ -13,18 +13,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "command-runner.pintobean.xyz"
-    tls:
-      httpsRedirect: true
-  - port:
-      number: 443
-      name: https
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: command-runner-tls
-    hosts:
-    - "command-runner.pintobean.xyz"
+    - "command-runner.amdev.pintobean.xyz"
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
@@ -33,7 +22,7 @@ metadata:
   namespace: command-runner
 spec:
   hosts:
-  - command-runner.pintobean.xyz
+  - command-runner.amdev.pintobean.xyz
   gateways:
   - command-runner-gw
   http:
