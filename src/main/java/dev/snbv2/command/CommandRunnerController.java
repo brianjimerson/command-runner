@@ -18,16 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CommandRunnerController {
 
-    @Value("${build.version}")
-    String buildVersion;
-
     private static final Log LOG = LogFactory.getLog(CommandRunnerController.class);
 
     @GetMapping(path={"/","/index"})
     public String index(Model model, HttpSession session) {
         Command command = new Command();
         model.addAttribute("command", command);
-        model.addAttribute("buildVersion", buildVersion);
         if (session.getAttribute("commandHistory") == null) {
             session.setAttribute("commandHistory", new CommandHistory());
         }
@@ -37,8 +33,6 @@ public class CommandRunnerController {
 
     @PostMapping(path=("/execute"))
     public String execute(@ModelAttribute Command command, Model model, HttpSession session) {
-
-        model.addAttribute("buildVersion", buildVersion);
 
         Process process;
         StringBuilder sb = new StringBuilder();
