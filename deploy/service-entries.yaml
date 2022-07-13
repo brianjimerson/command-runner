@@ -1,17 +1,15 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: ServiceEntry
 metadata:
-  name: external
+  name: cbssports
   namespace: command-runner
 spec:
   hosts:
-  - www.google.com
   - www.cbssports.com
-  - httpbin.org
   ports:
   - number: 443
-    name: tls
-    protocol: TLS
+    name: https
+    protocol: HTTPS
   - number: 80
     name: http
     protocol: HTTP
