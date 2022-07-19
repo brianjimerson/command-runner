@@ -22,18 +22,8 @@ jobs:
             - "1e:13:63:ac:4b:db:41:64:20:3a:48:cc:87:18:61:e0"          
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
-      - setup_remote_docker:
-          name: Setup Docker environment
-          docker_layer_caching: false
-      - run: 
-          name: Create and push image
-          command: |
-            TAG=1.0.0
-            docker build -t harbor.pintobean.xyz/command-runner/command-runner:$TAG .
-            docker login harbor.pintobean.xyz -u $HARBOR_USER -p $HARBOR_PASSWORD
-            # echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/command-runner/command-runner:$TAG
+          command: mvn -B -DskipTests -Ddocker.username=$HARBOR_USER -Ddocker.password=$HARBOR_PASSWORD clean package install
+
 workflows:
   release:
     jobs:
