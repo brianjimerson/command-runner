@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/openjdk:11.0.13
     steps:
       - checkout
       - run:
@@ -14,7 +14,7 @@ jobs:
           command: mvn test
   push-image:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/openjdk:11.0.13
     steps:
       - checkout
       - add_ssh_keys:
