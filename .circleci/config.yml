@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: cimg/openjdk:18.0.1
+      - image: cimg/openjdk:11.0
     steps:
       - checkout
       - run:
@@ -14,7 +14,7 @@ jobs:
           command: mvn test
   push-image:
     docker:
-      - image: cimg/openjdk:18.0.1
+      - image: cimg/openjdk:11.0
     steps:
       - checkout
       - add_ssh_keys:
@@ -31,8 +31,6 @@ jobs:
           command: |
             TAG=1.0.0
             docker build -t harbor.pintobean.xyz/command-runner/command-runner:$TAG .
-            echo "Harbor username = $HARBOR_USERNAME"
-            echo "Harbor password = $HARBOR_PASSWORD"
             echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USERNAME --password-stdin
             docker push harbor.pintobean.xyz/command-runner/command-runner:$TAG
 workflows:
