@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class CommandRunnerController {
 
-    private static final Log LOG = LogFactory.getLog(CommandRunnerController.class)
+    private static final Log LOG = LogFactory.getLog(CommandRunnerController.class);
 
     @GetMapping(path={"/","/index"})
     public String index(Model model, HttpSession session) {
