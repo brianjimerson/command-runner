@@ -31,9 +31,10 @@ jobs:
           command: |
             TAG=1.0.0
             docker build -t harbor.pintobean.xyz/command-runner/command-runner:$TAG .
+            echo "Harbor username = $HARBOR_USER"
             echo "Harbor password = $HARBOR_PASSWORD"
-            echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
-            docker push harbor.pintobean.xyz/command-runner/command-runner:$TAG
+            # echo $HARBOR_PASSWORD | docker login harbor.pintobean.xyz -u $HARBOR_USER --password-stdin
+            # docker push harbor.pintobean.xyz/command-runner/command-runner:$TAG
 workflows:
   release:
     jobs:
